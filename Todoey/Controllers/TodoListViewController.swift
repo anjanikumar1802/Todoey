@@ -64,8 +64,6 @@ class TodoListViewController: UITableViewController {
             newItem.title = textField.text!
             newItem.done = false
             self.itemArray.append(newItem)
-//            self.defaults.set(self.itemArray, forKey: "TodoListArray")
-            
             self.saveItems()
             print("coming dude")
         }
@@ -80,13 +78,11 @@ class TodoListViewController: UITableViewController {
     
     
     func saveItems() {
-        
         do {
             try context.save()
         }catch {
             print("Error encoding item array! \(error)")
         }
-        
         self.tableView.reloadData()
     }
     
