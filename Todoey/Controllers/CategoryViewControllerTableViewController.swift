@@ -88,7 +88,6 @@ class CategoryViewControllerTableViewController: UITableViewController {
             let newCategory = Category()
             newCategory.name = textField.text!
             self.save(category: newCategory)
-            
         }
         
         alert.addTextField { (alertTextField) in

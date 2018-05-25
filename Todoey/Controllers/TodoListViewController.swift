@@ -19,7 +19,7 @@ class TodoListViewController: UITableViewController {
         }
     }
     
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+//    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -106,14 +106,14 @@ class TodoListViewController: UITableViewController {
     }
     
     
-    func saveItems() {
-        do {
-            try context.save()
-        }catch {
-            print("Error encoding item array! \(error)")
-        }
-        self.tableView.reloadData()
-    }
+//    func saveItems() {
+//        do {
+//            try context.save()
+//        }catch {
+//            print("Error encoding item array! \(error)")
+//        }
+//        self.tableView.reloadData()
+//    }
     
     
     func loadItems() {
