@@ -21,6 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
      //   print(Realm.Configuration.defaultConfiguration.fileURL)
         do {
             _ = try Realm()
+//            let defaultPath = Realm.Configuration.defaultConfiguration.
+//            try FileManager.defaultManager().removeItemAtPath(defaultPath)
         } catch {
             print("Error initializing new realm \(error)")
         }
