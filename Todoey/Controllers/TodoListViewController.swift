@@ -32,6 +32,16 @@ class TodoListViewController: SwipeTableViewController {
     }
     
     
+    override func viewWillAppear(_ animated: Bool) {
+        if let colourHex = selectedCategory?.color {
+            guard let navBar = navigationController?.navigationBar else {
+                fatalError("Navigation Controller does not exist")
+            }
+            navBar.barTintColor = UIColor(hexString: colourHex)
+        }
+    }
+    
+    
     // Mark -- TableView DataSource Methods
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
