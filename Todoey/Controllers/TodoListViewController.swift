@@ -12,6 +12,7 @@ import ChameleonFramework
 
 class TodoListViewController: SwipeTableViewController {
 
+    @IBOutlet weak var searchBar: UISearchBar!
     var todoItems: Results<Item>?
     let realm = try! Realm()
     var selectedCategory : Category? {
@@ -31,14 +32,33 @@ class TodoListViewController: SwipeTableViewController {
 
     }
     
+    // Mark -- viewWillAppear Method
     
     override func viewWillAppear(_ animated: Bool) {
-        if let colourHex = selectedCategory?.color {
-            guard let navBar = navigationController?.navigationBar else {
-                fatalError("Navigation Controller does not exist")
-            }
-            navBar.barTintColor = UIColor(hexString: colourHex)
+        title = selectedCategory?.name
+        guard let colourHex = selectedCategory?.color else { fatalError() }
+        updateNavBar(withHexCode: colourHex)
+    }
+    
+    // Mark -- viewWillDisappear Method
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        updateNavBar(withHexCode: "1D9BF6")
+    }
+    
+    // Mark -- NavBar setup methods
+    
+    func updateNavBar(withHexCode colourHexCode : String) {
+        guard let navBar = navigationController?.navigationBar else {
+            fatalError("Navigation Controller does not exist")
         }
+        
+        guard let navBarColour = UIColor(hexString: colourHexCode) else {fatalError()}
+        navBar.barTintColor = navBarColour
+        navBar.tintColor = ContrastColorOf(navBarColour, returnFlat: true)
+        navBar.largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor :
+            ContrastColorOf(navBarColour, returnFlat: true)]
+        searchBar.barTintColor = navBarColour
     }
     
     
@@ -59,6 +79,7 @@ class TodoListViewController: SwipeTableViewController {
             if let color = UIColor(hexString: selectedCategory!.color)?.darken(byPercentage: CGFloat(indexPath.row) / CGFloat(todoItems!.count)) {
                 cell.backgroundColor = color
                 cell.textLabel?.textColor = ContrastColorOf(color, returnFlat: true)
+                
             }
             
         } else {
